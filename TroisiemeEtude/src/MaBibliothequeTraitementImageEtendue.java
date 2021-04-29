@@ -30,13 +30,14 @@ import org.opencv.core.Point;
 import org.opencv.core.Rect;
 import org.opencv.core.Scalar;
 import org.opencv.core.Size;
-import org.opencv.features2d.DMatch;
+//import org.opencv.features2d.DMatch;
 import org.opencv.features2d.DescriptorExtractor;
 import org.opencv.features2d.DescriptorMatcher;
 import org.opencv.features2d.FeatureDetector;
 import org.opencv.features2d.Features2d;
-import org.opencv.highgui.Highgui;
+//import org.opencv.highgui.Highgui;
 import org.opencv.imgproc.Imgproc;
+import org.opencv.imgcodecs.Imgcodecs;
 
 public class MaBibliothequeTraitementImageEtendue {
 	//Contient toutes les méthodes necessaires à la transformation des images
@@ -60,7 +61,7 @@ public class MaBibliothequeTraitementImageEtendue {
 	//Methode qui permet d'afficher une image sur un panel
 	public static void afficheImage(String title, Mat img){
 		MatOfByte matOfByte=new MatOfByte();
-		Highgui.imencode(".png",img,matOfByte);
+		Imgcodecs.imencode(".png",img,matOfByte);
 		byte[] byteArray=matOfByte.toArray();
 		BufferedImage bufImage=null;
 		try{
@@ -158,8 +159,8 @@ public class MaBibliothequeTraitementImageEtendue {
 		//on dit que c'est un cercle si l'aire occupé par le contour est à supérieure à  80% de l'aire occupée par un cercle parfait
 		if ((contourArea / (Math.PI*radius[0]*radius[0])) >=0.8) {
 			//System.out.println("Cercle");
-			Core.circle(img, center, (int)radius[0], new Scalar(255, 0, 0), 2);
-			Core.rectangle(img, new Point(rect.x,rect.y), new Point(rect.x+rect.width,rect.y+rect.height), new Scalar (0, 255, 0), 2);
+			Imgproc.circle(img, center, (int)radius[0], new Scalar(255, 0, 0), 2);
+			Imgproc.rectangle(img, new Point(rect.x,rect.y), new Point(rect.x+rect.width,rect.y+rect.height), new Scalar (0, 255, 0), 2);
 			Mat tmp = img.submat(rect.y,rect.y+rect.height,rect.x,rect.x+rect.width);
 			Mat sign = Mat.zeros(tmp.size(),tmp.type());
 			tmp.copyTo(sign);
@@ -171,10 +172,10 @@ public class MaBibliothequeTraitementImageEtendue {
 			if (total == 3 ) { // is triangle
 				//System.out.println("Triangle");
 				Point [] pt = approxCurve.toArray();
-				Core.line(img, pt[0], pt[1], new Scalar(255,0,0),2);
-				Core.line(img, pt[1], pt[2], new Scalar(255,0,0),2);
-				Core.line(img, pt[2], pt[0], new Scalar(255,0,0),2);
-				Core.rectangle(img, new Point(rect.x,rect.y), new Point(rect.x+rect.width,rect.y+rect.height), new Scalar (0, 255, 0), 2);
+				Imgproc.line(img, pt[0], pt[1], new Scalar(255,0,0),2);
+				Imgproc.line(img, pt[1], pt[2], new Scalar(255,0,0),2);
+				Imgproc.line(img, pt[2], pt[0], new Scalar(255,0,0),2);
+				Imgproc.rectangle(img, new Point(rect.x,rect.y), new Point(rect.x+rect.width,rect.y+rect.height), new Scalar (0, 255, 0), 2);
 				Mat tmp = img.submat(rect.y,rect.y+rect.height,rect.x,rect.x+rect.width);
 				Mat sign = Mat.zeros(tmp.size(),tmp.type());
 				tmp.copyTo(sign);
@@ -195,7 +196,7 @@ public class MaBibliothequeTraitementImageEtendue {
 					double ratio = Math.abs(1 - (double) rect.width / rect.height);
 					//drawText(rect.tl(), ratio <= 0.02 ? "SQU" : "RECT");
 					//System.out.println("Rectangle");
-					Core.rectangle(img, new Point(rect.x,rect.y), new Point(rect.x+rect.width,rect.y+rect.height), new Scalar (0, 255, 0), 2);
+					Imgproc.rectangle(img, new Point(rect.x,rect.y), new Point(rect.x+rect.width,rect.y+rect.height), new Scalar (0, 255, 0), 2);
 					Mat tmp = img.submat(rect.y,rect.y+rect.height,rect.x,rect.x+rect.width);
 					Mat sign = Mat.zeros(tmp.size(),tmp.type());
 					tmp.copyTo(sign);
@@ -228,7 +229,7 @@ public class MaBibliothequeTraitementImageEtendue {
 		
 
 		// Conversion du signe de reference en niveaux de gris et normalisation
-		Mat panneauref = Highgui.imread(signfile);	float somme=0;
+		Mat panneauref = Imgcodecs.imread(signfile);	float somme=0;
 		//int n=336;
 		
 		float moyenne=0;;
@@ -274,23 +275,23 @@ public class MaBibliothequeTraitementImageEtendue {
 		Mat matchedImage =new Mat(panneauref.rows(),panneauref.cols()*2,panneauref.type());
 		Features2d.drawMatches(sObject, objectKeypoints,panneauref,signKeypoints,matchs,matchedImage); 
 		//afficheImage("matched",matchedImage );
-		List<DMatch> l =matchs.toList();
+		List<org.opencv.core.DMatch> l =matchs.toList();
 		
 		
 		for(int i=0;i<l.size();i++)
-		{  DMatch dmatch=l.get(i);
+		{  org.opencv.core.DMatch dmatch=l.get(i);
 		   somme=somme+dmatch.distance;
 		
 		
 		}
 		moyenne=somme/l.size();
-		System.out.println(moyenne);
+		//System.out.println(moyenne);
 		//System.out.println(contours.size());
 		return moyenne;}
 	
 	public static BufferedImage Mat2bufferedImage(Mat image) {
 		MatOfByte bytemat = new MatOfByte();
-		Highgui.imencode(".jpg", image, bytemat);
+		Imgcodecs.imencode(".jpg", image, bytemat);
 		byte[] bytes = bytemat.toArray();
 		InputStream in = new ByteArrayInputStream(bytes);
 		BufferedImage img = null;
