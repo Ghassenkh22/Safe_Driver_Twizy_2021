@@ -1,3 +1,4 @@
+package classes;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -49,7 +50,7 @@ public class AnalyseVideo {
 		int valeurprec=0;
 		//Mat frame =Highgui.imread("p8.jpg",Highgui.CV_LOAD_IMAGE_COLOR);
 		
-		VideoCapture camera = new VideoCapture("video2.mp4");
+		VideoCapture camera = new VideoCapture("video1.mp4");
 		
 		 /*if (!camera.isOpened()) {
 	            System.out.println("Error! Camera can't be opened!");
