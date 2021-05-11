@@ -1,5 +1,6 @@
 package classes;
 import java.awt.Dimension;
+
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -36,8 +37,12 @@ import org.opencv.features2d.DescriptorExtractor;
 import org.opencv.features2d.DescriptorMatcher;
 import org.opencv.features2d.FeatureDetector;
 import org.opencv.features2d.Features2d;
+import org.opencv.highgui.Highgui;
 //import org.opencv.highgui.Highgui;
 import org.opencv.imgproc.Imgproc;
+
+import detectpan.MaBibliothequeTraitementImageEtendue;
+
 import org.opencv.imgcodecs.Imgcodecs;
 
 public class MaBibliothequeTraitementImageEtendue {
@@ -329,6 +334,79 @@ public class MaBibliothequeTraitementImageEtendue {
 
 		return indexmax;
 	}
+	
+	public static ArrayList<String> etu_pan(String fichier) {
+		//Ouverture le l'image et saturation des rouges
+				System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+				Mat m=Highgui.imread(fichier,Highgui.CV_LOAD_IMAGE_COLOR);
+				MaBibliothequeTraitementImageEtendue.afficheImage("Image testée", m);
+				Mat transformee=MaBibliothequeTraitementImageEtendue.transformeBGRversHSV(m);
+				//la methode seuillage est ici extraite de l'archivage jar du meme nom 
+				Mat saturee=MaBibliothequeTraitementImageEtendue.seuillage(transformee, 6, 170, 110);
+				Mat objetrond = null;
+
+				//Création d'une liste des contours à partir de l'image saturée
+				List<MatOfPoint> ListeContours= MaBibliothequeTraitementImageEtendue .ExtractContours(saturee);
+				int i=0;
+				int k=0;
+				double [] scores=new double [6];
+				//Pour tous les contours de la liste
+				ArrayList<String> panneaux = new ArrayList<String>();
+				
+				for (MatOfPoint contour: ListeContours  ){
+					i++;
+					objetrond=MaBibliothequeTraitementImageEtendue.DetectForm(m,contour);
+					
+					if (objetrond!=null){
+						
+						k++;
+						if (k==2)
+						MaBibliothequeTraitementImageEtendue.afficheImage("Objet rond detécté", objetrond);
+						scores[0]=MaBibliothequeTraitementImageEtendue.Similitude(objetrond,"ref30.jpg");
+						scores[1]=MaBibliothequeTraitementImageEtendue.Similitude(objetrond,"ref50.jpg");
+						scores[2]=MaBibliothequeTraitementImageEtendue.Similitude(objetrond,"ref70.jpg");
+						scores[3]=MaBibliothequeTraitementImageEtendue.Similitude(objetrond,"ref90.jpg");
+						scores[4]=MaBibliothequeTraitementImageEtendue.Similitude(objetrond,"ref110.jpg");
+						scores[5]=MaBibliothequeTraitementImageEtendue.Similitude(objetrond,"refdouble.jpg");
+
+
+						//recherche de l'index du maximum et affichage du panneau detecté
+						double scoremax=Integer.MAX_VALUE;
+						int indexmax=-1;
+						for(int j=0;j<scores.length;j++){
+							if (scores[j]<scoremax){scoremax=scores[j];indexmax=j;}}	
+						System.out.println(scoremax);
+						if(scoremax<0){System.out.println("Aucun Panneau détécté");}
+						else{switch(indexmax){
+						case -1:;break;
+						case 0:System.out.println("Panneau 30 détécté");
+					
+						panneaux.add("30");
+						break;
+						case 1:System.out.println("Panneau 50 détécté");
+						panneaux.add("50");
+						break;
+						case 2:System.out.println("Panneau 70 détécté");
+						panneaux.add("70");
+						break;
+						case 3:System.out.println("Panneau 90 détécté");
+						panneaux.add("90");
+						break;
+						case 4:System.out.println("Panneau 110 détécté");
+						panneaux.add("110");
+						break;
+						case 5:System.out.println("Panneau interdiction de dépasser détécté");
+						panneaux.add("intdep");
+						break;
+						}}
+						System.out.println("object rond n "+k+"\n");
+
+					}
+				}
+				
+
+		return panneaux;
+		}
 
 
 }
