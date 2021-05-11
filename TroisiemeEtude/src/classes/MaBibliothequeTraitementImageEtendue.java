@@ -1,6 +1,7 @@
 package classes;
 import java.awt.Dimension;
 
+
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -37,11 +38,11 @@ import org.opencv.features2d.DescriptorExtractor;
 import org.opencv.features2d.DescriptorMatcher;
 import org.opencv.features2d.FeatureDetector;
 import org.opencv.features2d.Features2d;
-import org.opencv.highgui.Highgui;
+
 //import org.opencv.highgui.Highgui;
 import org.opencv.imgproc.Imgproc;
 
-import detectpan.MaBibliothequeTraitementImageEtendue;
+
 
 import org.opencv.imgcodecs.Imgcodecs;
 
@@ -338,7 +339,7 @@ public class MaBibliothequeTraitementImageEtendue {
 	public static ArrayList<String> etu_pan(String fichier) {
 		//Ouverture le l'image et saturation des rouges
 				System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-				Mat m=Highgui.imread(fichier,Highgui.CV_LOAD_IMAGE_COLOR);
+				Mat m=Imgcodecs.imread(fichier);
 				MaBibliothequeTraitementImageEtendue.afficheImage("Image testée", m);
 				Mat transformee=MaBibliothequeTraitementImageEtendue.transformeBGRversHSV(m);
 				//la methode seuillage est ici extraite de l'archivage jar du meme nom 

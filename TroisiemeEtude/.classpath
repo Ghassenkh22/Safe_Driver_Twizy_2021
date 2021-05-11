@@ -7,7 +7,8 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/OpenCV"/>
-	<classpathentry kind="lib" path="C:/Users/Ghassen/Documents/cours ENSEM/S8/projet twizzy/DeuxièmeEtude/Mabiblio.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/OpenCV-3.4.13"/>
+	<classpathentry kind="lib" path="C:/Users/Guillaume/Safe_Driver_Twizy_2021/TroisiemeEtude/Mabiblio.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

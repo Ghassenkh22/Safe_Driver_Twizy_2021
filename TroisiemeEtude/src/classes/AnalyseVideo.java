@@ -35,6 +35,8 @@ public class AnalyseVideo {
 	static Mat imag = null;
 
 	public static void main(String[] args) {
+		
+	
 		JFrame jframe = new JFrame("Detection de panneaux sur un flux vidéo");
 		jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		JLabel vidpanel = new JLabel();
