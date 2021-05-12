@@ -12,7 +12,7 @@ import classes.MaBibliothequeTraitementImageEtendue;
 public class test {
 
 
-
+/*
 	@Test
 	public void testp1(){
 		ArrayList<String> val=new ArrayList<String>();
@@ -212,7 +212,7 @@ public class test {
 		assertTrue(comp.equalsIgnoreCase("110"));
 		assertTrue(comp2.equalsIgnoreCase("intdep"));
 	
-	}/*
+	}
 	@Test
 	public void testp20(){
 		ArrayList<String> val=new ArrayList<String>();
@@ -273,4 +273,26 @@ public class test {
 		
 	
 	}*/
+	@Test
+	public void testp26(){
+		ArrayList<String> val=new ArrayList<String>();
+		val=MaBibliothequeTraitementImageEtendue.etu_pan("p26.jpg")	;
+		String comp=val.get(0);
+		System.out.println(comp);
+		assertTrue(comp.equalsIgnoreCase("50"));
+		
+	
+	}
+	@Test
+	public void testp27(){
+		ArrayList<String> val=new ArrayList<String>();
+		val=MaBibliothequeTraitementImageEtendue.etu_pan("p27.jpg")	;
+		String comp=val.get(0);
+		String comp2=val.get(1);
+		System.out.println(comp);
+		assertTrue(comp.equalsIgnoreCase("90"));
+		assertTrue(comp2.equalsIgnoreCase("90"));
+		
+	
+	}
 }
