@@ -369,7 +369,7 @@ public class MaBibliothequeTraitementImageEtendue {
 						scores[3]=MaBibliothequeTraitementImageEtendue.Similitude(objetrond,"ref90.jpg");
 						scores[4]=MaBibliothequeTraitementImageEtendue.Similitude(objetrond,"ref110.jpg");
 						scores[5]=MaBibliothequeTraitementImageEtendue.Similitude(objetrond,"refdouble.jpg");
-
+						scores[6]=MaBibliothequeTraitementImageEtendue.Similitude(objetrond,"ref10.jpg");
 
 						//recherche de l'index du maximum et affichage du panneau detecté
 						double scoremax=Integer.MAX_VALUE;
@@ -398,6 +398,9 @@ public class MaBibliothequeTraitementImageEtendue {
 						break;
 						case 5:System.out.println("Panneau interdiction de dépasser détécté");
 						panneaux.add("intdep");
+						break;
+						case 6:System.out.println("Panneau 10 détécté");
+						panneaux.add("10");
 						break;
 						}}
 						System.out.println("object rond n "+k+"\n");
