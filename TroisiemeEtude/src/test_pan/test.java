@@ -212,7 +212,7 @@ public class test {
 		assertTrue(comp.equalsIgnoreCase("110"));
 		assertTrue(comp2.equalsIgnoreCase("intdep"));
 	
-	}
+	}/*
 	@Test
 	public void testp20(){
 		ArrayList<String> val=new ArrayList<String>();
@@ -246,7 +246,7 @@ public class test {
 	@Test
 	public void testp23(){
 		ArrayList<String> val=new ArrayList<String>();
-		val=MaBibliothequeTraitementImageEtendue.etu_pan("p22.jpg")	;
+		val=MaBibliothequeTraitementImageEtendue.etu_pan("p23.jpg")	;
 		String comp=val.get(0);
 		System.out.println(comp);
 		assertTrue(comp.equalsIgnoreCase("80"));
@@ -256,11 +256,21 @@ public class test {
 	@Test
 	public void testp24(){
 		ArrayList<String> val=new ArrayList<String>();
-		val=MaBibliothequeTraitementImageEtendue.etu_pan("p22.jpg")	;
+		val=MaBibliothequeTraitementImageEtendue.etu_pan("p24.jpg")	;
+		String comp=val.get(0);
+		System.out.println(comp);
+		assertTrue(comp.equalsIgnoreCase("80"));
+		
+	
+	}
+	@Test
+	public void testp25(){
+		ArrayList<String> val=new ArrayList<String>();
+		val=MaBibliothequeTraitementImageEtendue.etu_pan("p25.jpg")	;
 		String comp=val.get(0);
 		System.out.println(comp);
 		assertTrue(comp.equalsIgnoreCase("130"));
 		
 	
-	}
+	}*/
 }
