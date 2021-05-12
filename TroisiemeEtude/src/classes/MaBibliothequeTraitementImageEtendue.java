@@ -314,7 +314,7 @@ public class MaBibliothequeTraitementImageEtendue {
 
 
 	public static int identifiepanneau(Mat objetrond){
-		double [] scores=new double [6];
+		double [] scores=new double [7];
 		int indexmax=-1;
 		double scoremax=Integer.MAX_VALUE;
 			scores[0]=MaBibliothequeTraitementImageEtendue.Similitude(objetrond,"ref30.jpg");
@@ -323,7 +323,7 @@ public class MaBibliothequeTraitementImageEtendue {
 			scores[3]=MaBibliothequeTraitementImageEtendue.Similitude(objetrond,"ref90.jpg");
 			scores[4]=MaBibliothequeTraitementImageEtendue.Similitude(objetrond,"ref110.jpg");
 			scores[5]=MaBibliothequeTraitementImageEtendue.Similitude(objetrond,"refdouble.jpg");
-
+			
 		
 
 			for(int j=0;j<scores.length;j++){
@@ -350,7 +350,7 @@ public class MaBibliothequeTraitementImageEtendue {
 				List<MatOfPoint> ListeContours= MaBibliothequeTraitementImageEtendue .ExtractContours(saturee);
 				int i=0;
 				int k=0;
-				double [] scores=new double [6];
+				double [] scores=new double [11];
 				//Pour tous les contours de la liste
 				ArrayList<String> panneaux = new ArrayList<String>();
 				
@@ -370,7 +370,11 @@ public class MaBibliothequeTraitementImageEtendue {
 						scores[4]=MaBibliothequeTraitementImageEtendue.Similitude(objetrond,"ref110.jpg");
 						scores[5]=MaBibliothequeTraitementImageEtendue.Similitude(objetrond,"refdouble.jpg");
 						scores[6]=MaBibliothequeTraitementImageEtendue.Similitude(objetrond,"ref10.jpg");
-
+						scores[7]=MaBibliothequeTraitementImageEtendue.Similitude(objetrond,"ref20.jpg");
+						scores[8]=MaBibliothequeTraitementImageEtendue.Similitude(objetrond,"ref40.jpg");
+						scores[9]=MaBibliothequeTraitementImageEtendue.Similitude(objetrond,"ref80.jpg");
+						
+						scores[10]=MaBibliothequeTraitementImageEtendue.Similitude(objetrond,"ref130.jpg");
 						//recherche de l'index du maximum et affichage du panneau detecté
 						double scoremax=Integer.MAX_VALUE;
 						int indexmax=-1;
@@ -401,6 +405,19 @@ public class MaBibliothequeTraitementImageEtendue {
 						break;
 						case 6:System.out.println("Panneau 10 détécté");
 						panneaux.add("10");
+						break;
+						case 7:System.out.println("Panneau 10 détécté");
+						panneaux.add("20");
+						break;
+						case 8:System.out.println("Panneau 10 détécté");
+						panneaux.add("40");
+						break;
+						case 9:System.out.println("Panneau 10 détécté");
+						panneaux.add("80");
+						break;
+					
+						case 10:System.out.println("Panneau 10 détécté");
+						panneaux.add("130");
 						break;
 						}}
 						System.out.println("object rond n "+k+"\n");
