@@ -280,7 +280,7 @@ public class MaBibliothequeTraitementImageEtendue {
 		matcher.match(objectDescriptor, signDescriptor,matchs);
 		//System.out.println(matchs.dump());
 		Mat matchedImage =new Mat(panneauref.rows(),panneauref.cols()*2,panneauref.type());
-		Features2d.drawMatches(sObject, objectKeypoints,panneauref,signKeypoints,matchs,matchedImage); 
+		//Features2d.drawMatches(sObject, objectKeypoints,panneauref,signKeypoints,matchs,matchedImage); 
 		//afficheImage("matched",matchedImage );
 		List<org.opencv.core.DMatch> l =matchs.toList();
 		
@@ -340,7 +340,7 @@ public class MaBibliothequeTraitementImageEtendue {
 		//Ouverture le l'image et saturation des rouges
 				System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 				Mat m=Imgcodecs.imread(fichier);
-				MaBibliothequeTraitementImageEtendue.afficheImage("Image testée", m);
+				//MaBibliothequeTraitementImageEtendue.afficheImage("Image testée", m);
 				Mat transformee=MaBibliothequeTraitementImageEtendue.transformeBGRversHSV(m);
 				//la methode seuillage est ici extraite de l'archivage jar du meme nom 
 				Mat saturee=MaBibliothequeTraitementImageEtendue.seuillage(transformee, 6, 170, 110);

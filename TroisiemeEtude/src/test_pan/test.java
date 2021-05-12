@@ -125,5 +125,92 @@ public class test {
 	
 	}
 	
-
+	@Test
+	public void testp12(){
+		ArrayList<String> val=new ArrayList<String>();
+		val=MaBibliothequeTraitementImageEtendue.etu_pan("p12.jpg")	;
+		String comp=val.get(0);
+		System.out.println(comp);
+		assertTrue(comp.equalsIgnoreCase("70"));
+		
+	
+	}
+	@Test
+	public void testp13(){
+		ArrayList<String> val=new ArrayList<String>();
+		val=MaBibliothequeTraitementImageEtendue.etu_pan("p13.jpg")	;
+		String comp=val.get(0);
+		System.out.println(comp);
+		assertTrue(comp.equalsIgnoreCase("90"));
+		
+	
+	}
+	@Test
+	public void testp14(){
+		ArrayList<String> val=new ArrayList<String>();
+		val=MaBibliothequeTraitementImageEtendue.etu_pan("p14.jpg")	;
+		String comp=val.get(0);
+		System.out.println(comp);
+		assertTrue(comp.equalsIgnoreCase("50"));
+		
+	
+	}
+	
+	@Test
+	public void testp15(){
+		ArrayList<String> val=new ArrayList<String>();
+		val=MaBibliothequeTraitementImageEtendue.etu_pan("p15.jpg")	;
+		String comp=val.get(0);
+		System.out.println(comp);
+		assertTrue(comp.equalsIgnoreCase("110"));
+		
+	
+	}
+	
+	@Test
+	public void testp16(){
+		ArrayList<String> val=new ArrayList<String>();
+		val=MaBibliothequeTraitementImageEtendue.etu_pan("p16.jfif")	;
+		String comp=val.get(0);
+		System.out.println(comp);
+		assertTrue(comp.equalsIgnoreCase("30"));
+		
+	
+	}
+	@Test
+	public void testp17(){
+		ArrayList<String> val=new ArrayList<String>();
+		val=MaBibliothequeTraitementImageEtendue.etu_pan("p17.jpg")	;
+		String comp=val.get(0);
+		String comp2=val.get(1);
+		System.out.println(comp);
+		assertTrue(comp.equalsIgnoreCase("intdep"));
+		assertTrue(comp2.equalsIgnoreCase("50"));
+		
+	
+	}
+	@Test
+	public void testp18(){
+		ArrayList<String> val=new ArrayList<String>();
+		val=MaBibliothequeTraitementImageEtendue.etu_pan("p18.jpg")	;
+		String comp=val.get(0);
+		System.out.println(comp);
+		assertTrue(comp.equalsIgnoreCase("50"));
+		
+	
+	}
+	
+	
+	@Test
+	public void testp19(){
+		ArrayList<String> val=new ArrayList<String>();
+		val=MaBibliothequeTraitementImageEtendue.etu_pan("p19.jpg")	;
+	
+		String comp=val.get(0);
+		String comp2=val.get(1);
+		System.out.println(comp);
+		assertTrue(comp.equalsIgnoreCase("110"));
+		assertTrue(comp2.equalsIgnoreCase("intdep"));
+	
+	}
 }
