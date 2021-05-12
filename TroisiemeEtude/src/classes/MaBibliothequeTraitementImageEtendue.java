@@ -280,7 +280,7 @@ public class MaBibliothequeTraitementImageEtendue {
 		matcher.match(objectDescriptor, signDescriptor,matchs);
 		//System.out.println(matchs.dump());
 		Mat matchedImage =new Mat(panneauref.rows(),panneauref.cols()*2,panneauref.type());
-		//Features2d.drawMatches(sObject, objectKeypoints,panneauref,signKeypoints,matchs,matchedImage); 
+		Features2d.drawMatches(sObject, objectKeypoints,panneauref,signKeypoints,matchs,matchedImage); 
 		//afficheImage("matched",matchedImage );
 		List<org.opencv.core.DMatch> l =matchs.toList();
 		
@@ -292,7 +292,7 @@ public class MaBibliothequeTraitementImageEtendue {
 		
 		}
 		moyenne=somme/l.size();
-		//System.out.println(moyenne);
+		System.out.println(moyenne);
 		//System.out.println(contours.size());
 	
 		return moyenne;}
