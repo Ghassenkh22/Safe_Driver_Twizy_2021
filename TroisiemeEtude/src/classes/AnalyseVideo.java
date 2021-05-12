@@ -36,7 +36,7 @@ public class AnalyseVideo {
 
 	public static void main(String[] args) {
 		
-		MaBibliothequeTraitementImageEtendue.etu_pan("p10.jpg");
+		
 		JFrame jframe = new JFrame("Detection de panneaux sur un flux vidéo");
 		jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		JLabel vidpanel = new JLabel();
