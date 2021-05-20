@@ -11,8 +11,8 @@ import classes.MaBibliothequeTraitementImageEtendue;
 
 public class test {
 
-
 /*
+
 	@Test
 	public void testp1(){
 		ArrayList<String> val=new ArrayList<String>();
@@ -212,7 +212,7 @@ public class test {
 		assertTrue(comp.equalsIgnoreCase("110"));
 		assertTrue(comp2.equalsIgnoreCase("intdep"));
 	
-	}
+	}/*
 	@Test
 	public void testp20(){
 		ArrayList<String> val=new ArrayList<String>();
@@ -272,7 +272,7 @@ public class test {
 		assertTrue(comp.equalsIgnoreCase("130"));
 		
 	
-	}*/
+	}
 	@Test
 	public void testp26(){
 		ArrayList<String> val=new ArrayList<String>();
@@ -295,4 +295,131 @@ public class test {
 		
 	
 	}
+	@Test
+	public void testp28(){
+		ArrayList<String> val=new ArrayList<String>();
+		val=MaBibliothequeTraitementImageEtendue.etu_pan("p28.jpg")	;
+		String comp=val.get(0);
+		
+		assertTrue(comp.equalsIgnoreCase("50"));
+		
+	
+	}
+	@Test
+	public void testp29(){
+		ArrayList<String> val=new ArrayList<String>();
+		val=MaBibliothequeTraitementImageEtendue.etu_pan("p29.jpg")	;
+		String comp=val.get(0);
+		
+		assertTrue(comp.equalsIgnoreCase("50"));
+		
+	
+	}*/
+	@Test
+	public void testp30(){
+		ArrayList<String> val=new ArrayList<String>();
+		val=MaBibliothequeTraitementImageEtendue.etu_pan("p30.png")	;
+		String comp=val.get(0);
+		
+		assertTrue(comp.equalsIgnoreCase("50"));
+	}
+		@Test
+		public void testp31(){
+			ArrayList<String> val=new ArrayList<String>();
+			val=MaBibliothequeTraitementImageEtendue.etu_pan("p31.jpg")	;
+			String comp=val.get(0);
+		
+			assertTrue(comp.equalsIgnoreCase("50"));}
+			@Test
+			public void testp32(){
+				ArrayList<String> val=new ArrayList<String>();
+				val=MaBibliothequeTraitementImageEtendue.etu_pan("p32.jpg")	;
+				String comp=val.get(0);
+				
+				assertTrue(comp.equalsIgnoreCase("30"));
+				
+			
+			}
+		
+			@Test
+			public void testp33(){
+				ArrayList<String> val=new ArrayList<String>();
+				val=MaBibliothequeTraitementImageEtendue.etu_pan("p33.png")	;
+				String comp=val.get(0);
+				
+				assertTrue(comp.equalsIgnoreCase("intdep"));
+			}	
+			@Test
+			public void testp34(){
+				ArrayList<String> val=new ArrayList<String>();
+				val=MaBibliothequeTraitementImageEtendue.etu_pan("p34.png")	;
+				String comp=val.get(0);
+				
+				assertTrue(comp.equalsIgnoreCase("110"));
+			}
+			@Test
+			public void testp35(){
+				ArrayList<String> val=new ArrayList<String>();
+				val=MaBibliothequeTraitementImageEtendue.etu_pan("p35.png")	;
+				String comp=val.get(0);
+				
+				assertTrue(comp.equalsIgnoreCase("90"));
+			}
+			@Test
+			public void testp36(){
+				ArrayList<String> val=new ArrayList<String>();
+				val=MaBibliothequeTraitementImageEtendue.etu_pan("p36.png")	;
+				String comp=val.get(0);
+				
+				assertTrue(comp.equalsIgnoreCase("110"));
+			}
+			@Test
+			public void testp37(){
+				ArrayList<String> val=new ArrayList<String>();
+				val=MaBibliothequeTraitementImageEtendue.etu_pan("p37.png")	;
+				String comp=val.get(0);
+				
+				assertTrue(comp.equalsIgnoreCase("90"));
+			}
+			@Test
+			public void testp38(){
+				ArrayList<String> val=new ArrayList<String>();
+				val=MaBibliothequeTraitementImageEtendue.etu_pan("p38.png")	;
+				String comp=val.get(0);
+				
+				assertTrue(comp.equalsIgnoreCase("70"));
+			}
+			@Test
+			public void testp39(){
+				ArrayList<String> val=new ArrayList<String>();
+				val=MaBibliothequeTraitementImageEtendue.etu_pan("p39.png")	;
+				String comp=val.get(0);
+				
+				assertTrue(comp.equalsIgnoreCase("30"));
+			}
+			@Test
+			public void testp40(){
+				ArrayList<String> val=new ArrayList<String>();
+				val=MaBibliothequeTraitementImageEtendue.etu_pan("p40.png")	;
+				String comp=val.get(0);
+				
+				assertTrue(comp.equalsIgnoreCase("30"));
+			}
+			@Test
+			public void testp41(){
+				ArrayList<String> val=new ArrayList<String>();
+				val=MaBibliothequeTraitementImageEtendue.etu_pan("p41.png")	;
+				String comp=val.get(0);
+				
+				assertTrue(comp.equalsIgnoreCase("30"));
+			}
+			@Test
+			public void testp42(){
+				ArrayList<String> val=new ArrayList<String>();
+				val=MaBibliothequeTraitementImageEtendue.etu_pan("p42.png")	;
+				String comp=val.get(0);
+				
+				assertTrue(comp.equalsIgnoreCase("50"));
+			}
+	
 }
