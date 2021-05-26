@@ -81,7 +81,7 @@ public class AnalyseVideo {
 			i++;
 			objetrond=MaBibliothequeTraitementImageEtendue.DetectForm(frame,contour);
 			
-			if (objetrond!=null){
+			if (objetrond!=null && objetrond.cols()>6 && objetrond.rows()>6){
 				//MaBibliothequeTraitementImageEtendue.afficheImage("Objet rond detécté", objetrond);
 				indice=MaBibliothequeTraitementImageEtendue.identifiepanneau(objetrond);
 				//System.out.println("indice max"+indice+"\n");
@@ -92,7 +92,7 @@ public class AnalyseVideo {
 						  nbr30=0;
 					      nbr30++;
 					//System.out.println("nbr 30= "+nbr30+"\n");
-					if (nbr30==3)
+					if (nbr30==5)
 					{  nbr30=0;
 						System.out.println("Panneau 30 détécté");}
 					valeurprec=30;
@@ -104,7 +104,7 @@ public class AnalyseVideo {
 					nbr50=0;
 						nbr50++;
 					//System.out.println("nbr 50= "+nbr50+"\n");
-					if (nbr50==3)
+					if (nbr50==5)
 					{  nbr50=0;
 						System.out.println("Panneau 50 détécté");}
 					valeurprec=50;
@@ -114,7 +114,7 @@ public class AnalyseVideo {
 					nbr70=0;
 					nbr70++;
 				//System.out.println("nbr 70= "+nbr70+"\n");
-				if (nbr70==3)
+				if (nbr70==5)
 				{  nbr70=0;
 					System.out.println("Panneau 70 détécté");}
 				valeurprec=70;
@@ -124,7 +124,7 @@ public class AnalyseVideo {
 						nbr90=0;
 						nbr90++;
 				//System.out.println("nbr 90= "+nbr90+"\n");
-				if (nbr90==3)
+				if (nbr90==5)
 				{  nbr90=0;
 					System.out.println("Panneau 90 détécté");}
 				valeurprec=90;
@@ -134,7 +134,7 @@ public class AnalyseVideo {
 					nbr110=0;
 					nbr110++;
 				//System.out.println("nbr 110= "+nbr110+"\n");
-				if (nbr110==3)
+				if (nbr110==5)
 				{  nbr110=0;
 					System.out.println("Panneau 110 détécté");}
 				valeurprec=110;
@@ -143,7 +143,7 @@ public class AnalyseVideo {
 					{if (valeurprec!=1)
 						nbrdep=0;
 						nbrdep++;
-				if (nbrdep==3)
+				if (nbrdep==5)
 				{  nbrdep=0;
 					System.out.println("Panneau interdiction de dépasser détécté");}
 				valeurprec=1;
