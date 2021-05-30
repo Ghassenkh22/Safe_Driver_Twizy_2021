@@ -292,7 +292,7 @@ public class MaBibliothequeTraitementImageEtendue {
 		
 		}
 		moyenne=somme/l.size();
-		System.out.println(moyenne);
+		//System.out.println(moyenne);
 		//System.out.println(contours.size());
 	
 		return moyenne;}
