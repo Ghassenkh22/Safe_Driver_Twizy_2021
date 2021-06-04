@@ -109,6 +109,7 @@ public class AnalyseVideo {
 		int i=0;
 		int k=0;
 		int indice;
+		int mode=1;
 	
 		double [] scores=new double [6];
 		//Pour tous les contours de la liste
@@ -116,9 +117,96 @@ public class AnalyseVideo {
 			i++;
 			objetrond=MaBibliothequeTraitementImageEtendue.DetectForm(frame,contour);
 			
-			if (objetrond!=null){
+			if (objetrond!=null && objetrond.cols()>6 && objetrond.rows()>6){
 				//MaBibliothequeTraitementImageEtendue.afficheImage("Objet rond detécté", objetrond);
-				indice=MaBibliothequeTraitementImageEtendue.identifiepanneau(objetrond);
+				if(mode==1) {
+					//System.out.println("mode= "+mode+"\n");
+					indice=MaBibliothequeTraitementImageEtendue.identifiepanneau(objetrond);
+					//System.out.println("indice max"+indice+"\n");
+					switch(indice){
+					case -1:System.out.println("Aucun panneau détécté");break;
+					case 0:{
+							if (valeurprec!=30)
+							  nbr30=0;
+						      nbr30++;
+						//System.out.println("nbr 30= "+nbr30+"\n");
+						if (nbr30==5)
+						{  nbr30=0;
+							System.out.println("Panneau 30 détécté");
+							this.panneauxPanel.setImage(image_30);
+							this.panneauxPanel.repaint();}
+						valeurprec=30;
+						break;
+						}
+					
+					case 1:
+						{if (valeurprec!=50)
+						nbr50=0;
+							nbr50++;
+						//System.out.println("nbr 50= "+nbr50+"\n");
+						if (nbr50==5)
+						{  nbr50=0;
+							System.out.println("Panneau 50 détécté");
+							this.panneauxPanel.setImage(image_50);
+							this.panneauxPanel.repaint();}
+						valeurprec=50;
+						break;}
+					case 2:
+					{   if (valeurprec!=70)
+						nbr70=0;
+						nbr70++;
+					//System.out.println("nbr 70= "+nbr70+"\n");
+					if (nbr70==3)
+					{  nbr70=0;
+						System.out.println("Panneau 70 détécté");
+						this.panneauxPanel.setImage(image_70);
+						this.panneauxPanel.repaint();}
+					valeurprec=70;
+					break;}
+					case 3:
+						{if (valeurprec!=90)
+							nbr90=0;
+							nbr90++;
+					//System.out.println("nbr 90= "+nbr90+"\n");
+					if (nbr90==3)
+					{  nbr90=0;
+						System.out.println("Panneau 90 détécté");
+						this.panneauxPanel.setImage(image_90);
+						this.panneauxPanel.repaint();}
+					valeurprec=90;
+					break;}
+					case 4:
+					{ if (valeurprec!=110)
+						nbr110=0;
+						nbr110++;
+					//System.out.println("nbr 110= "+nbr110+"\n");
+					if (nbr110==3)
+					{  nbr110=0;
+						System.out.println("Panneau 110 détécté");
+						this.panneauxPanel.setImage(image_110);
+						this.panneauxPanel.repaint();}
+					valeurprec=110;
+					break;}
+					case 5:
+						{if (valeurprec!=1)
+							nbrdep=0;
+							nbrdep++;
+					if (nbrdep==3)
+					{  nbrdep=0;
+						System.out.println("Panneau interdiction de dépasser détécté");
+						this.panneauxPanel.setImage(image_stop);
+						this.panneauxPanel.repaint();}
+					valeurprec=1;
+					break;}
+						
+						
+						
+					}
+					
+				}
+				else {
+					
+				indice=MaBibliothequeTraitementImageEtendue.identifiepanneau_matching(objetrond);
 				//System.out.println("indice max"+indice+"\n");
 				switch(indice){
 				case -1:System.out.println("Aucun panneau détécté");break;
@@ -210,7 +298,7 @@ public class AnalyseVideo {
 					
 				}
 				}	
-				
+			}
 				//System.out.println("object rond n "+k+"\n");
 			}
 

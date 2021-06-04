@@ -166,8 +166,8 @@ public class MaBibliothequeTraitementImageEtendue {
 		//on dit que c'est un cercle si l'aire occupé par le contour est à supérieure à  80% de l'aire occupée par un cercle parfait
 		if ((contourArea / (Math.PI*radius[0]*radius[0])) >=0.8) {
 			//System.out.println("Cercle");
-			Imgproc.circle(img, center, (int)radius[0], new Scalar(255, 0, 0), 2);
-			Imgproc.rectangle(img, new Point(rect.x,rect.y), new Point(rect.x+rect.width,rect.y+rect.height), new Scalar (0, 255, 0), 2);
+			Imgproc.circle(img, center, (int)radius[0], new Scalar(127, 0, 0), 2);
+			Imgproc.rectangle(img, new Point(rect.x,rect.y), new Point(rect.x+rect.width,rect.y+rect.height), new Scalar (0, 127, 0), 2);
 			Mat tmp = img.submat(rect.y,rect.y+rect.height,rect.x,rect.x+rect.width);
 			Mat sign = Mat.zeros(tmp.size(),tmp.type());
 			tmp.copyTo(sign);
@@ -230,6 +230,82 @@ public class MaBibliothequeTraitementImageEtendue {
 		return Math.floor(alpha * 180. / Math.PI + 0.5);
 	}
 
+	public static Mat seuillageBW(Mat input, int seuilNoirBlanc){
+		//création d'un seuil 
+		Scalar noirblanc = new Scalar(seuilNoirBlanc);
+		//Création de l'image d'arrivée en noir et blanc
+		Mat noir_blanc=new Mat();
+		
+		
+		//Comparaison et saturation des pixels dont la luminosité est plus grande que le seuil noirblanc
+		Core.compare(input, noirblanc, noir_blanc, Core.CMP_GT);
+		
+		
+		
+		//image saturée à retourner
+		return  noir_blanc;
+
+
+
+	}
+	public static double SimilitudeBWratio(Mat object,String signfile) {
+		// Conversion du signe de reference en niveaux de gris et normalisation
+		Mat panneauref = Imgcodecs.imread(signfile);	float somme=0;
+		//int n=336;
+				
+		float moyenne=0;;
+		Mat graySign = new Mat(panneauref.rows(), panneauref.cols(), panneauref.type());
+		Imgproc.cvtColor(panneauref, graySign, Imgproc.COLOR_BGRA2GRAY);
+		Mat signeNoirEtBlanc=new Mat();
+				
+
+
+		//normalisation du panneau extrait de l'image et redimmensionnement à la taille du panneau de référence
+		Mat sObject=new Mat();
+		Imgproc.resize(object, sObject,panneauref.size() );
+		Core.normalize(sObject, sObject, 0, 255, Core.NORM_MINMAX);
+		Vector<Mat> channels = new Vector<Mat>(); 
+		
+		//Seuillage du panneau extrait pour supprimer la bordure rouge
+		Core.split(sObject, channels);
+		Mat tmp1 = channels.get(1);
+		channels.remove(1);
+		sObject=transformeBGRversHSV(sObject);
+		Mat tmp3= seuillage(sObject, 6, 170, 72);
+		
+		//suppression de toute l'image sauf la zone de texte et préparation aux seuillages de noirs et de blancs
+		Mat tmp4 = new Mat();
+		Imgproc.threshold(tmp3, tmp4, 90, 255, 0);
+		Core.bitwise_not(tmp4,tmp4);
+		Mat tmp5 = Mat.zeros(tmp4.size(),tmp4.type());
+		Imgproc.circle(tmp5, new Point(tmp5.width()/2, tmp5.height()/2), (int)(tmp5.width()*(8.0/20.0)), new Scalar(255, 255, 255), -1);
+		Core.bitwise_and(tmp5,tmp4,tmp4);
+		Core.bitwise_not(tmp4,tmp5);
+		Imgproc.threshold(tmp5, tmp5, 127, 127, 0);
+		Core.bitwise_and(tmp4, tmp1, tmp1);
+		Core.add(tmp5, tmp1, tmp1);
+		
+		Mat grayObject=tmp1;
+		
+		//Comptage des pixels noirs et des pixels blancs et calcul des ratios
+		Vector<Mat> Blackandwhite = new Vector<Mat>();
+		Blackandwhite.add(seuillageBW(grayObject,125));
+		Blackandwhite.add(seuillageBW(grayObject,127));
+		double TotalNumberOfPixels = graySign.rows() * graySign.cols();
+		double nbblackref= (TotalNumberOfPixels-Core.countNonZero(seuillageBW(graySign,56)));
+		double nbwhiteref=Core.countNonZero(seuillageBW(graySign,170));
+		TotalNumberOfPixels = grayObject.rows() * grayObject.cols();
+		double nbblack= (TotalNumberOfPixels-Core.countNonZero(Blackandwhite.get(0)));
+		double nbwhite=Core.countNonZero(Blackandwhite.get(1));
+		double ratioref = nbblackref/nbwhiteref;
+		double ratio = nbblack/nbwhite;
+		
+		//Mat affiche = new Mat();
+		//Core.hconcat(Blackandwhite, affiche);
+		//afficheImage("détection pixels noirs vs pixels blancs du panneau", affiche);
+		
+		return Math.abs(ratioref-ratio);
+	}
 	
 	//methode à completer
 	public static double Similitude(Mat object,String signfile) {
@@ -313,8 +389,45 @@ public class MaBibliothequeTraitementImageEtendue {
 	}
 
 
+	
+	public static int identifiepanneau(Mat objetrond, float ratioBWMatching){
+		double [] scores=new double [6];
+		double [] scoreso=new double [6];
+		int indexmax=-1;
+		
+		//Application de la méthode des ratios de noirs et de blancs et addition des scores avec la méthode de matching	
+		double scoremin=Integer.MAX_VALUE;
+		//System.out.println("scores Black and white + matching");
+		scores[0]=MaBibliothequeTraitementImageEtendue.SimilitudeBWratio(objetrond,"ref30bw.jpg")+MaBibliothequeTraitementImageEtendue.Similitude(objetrond,"ref30.jpg")/(200*ratioBWMatching);;
+		//System.out.println(scores[0]);
+		scores[1]=MaBibliothequeTraitementImageEtendue.SimilitudeBWratio(objetrond,"ref50bw.jpg")+MaBibliothequeTraitementImageEtendue.Similitude(objetrond,"ref50.jpg")/(200*ratioBWMatching);
+		//System.out.println(scores[1]);
+		scores[2]=MaBibliothequeTraitementImageEtendue.SimilitudeBWratio(objetrond,"ref70bw.jpg")+MaBibliothequeTraitementImageEtendue.Similitude(objetrond,"ref70.jpg")/(200*ratioBWMatching);
+		//System.out.println(scores[2]);
+		scores[3]=MaBibliothequeTraitementImageEtendue.SimilitudeBWratio(objetrond,"ref90bw.jpg")+MaBibliothequeTraitementImageEtendue.Similitude(objetrond,"ref90.jpg")/(200*ratioBWMatching);
+		//System.out.println(scores[3]);
+		scores[4]=MaBibliothequeTraitementImageEtendue.SimilitudeBWratio(objetrond,"ref110bw.jpg")+MaBibliothequeTraitementImageEtendue.Similitude(objetrond,"ref110.jpg")/(200*ratioBWMatching);
+		//System.out.println(scores[4]);
+		scores[5]=MaBibliothequeTraitementImageEtendue.SimilitudeBWratio(objetrond,"refdoublebw.jpg")+MaBibliothequeTraitementImageEtendue.Similitude(objetrond,"refdouble.jpg")/(200*ratioBWMatching);
+		//System.out.println(scores[5]);
+		
+	
 
-	public static int identifiepanneau(Mat objetrond){
+		for(int j=0;j<scores.length;j++){
+			if (scores[j]<scoremin){scoremin=scores[j];indexmax=j;
+			
+			}
+			//System.out.println("le score de la case"+j+"="+scores[j]+"\n");
+			}
+		//System.out.println(scoremin);
+		return indexmax;
+	}
+	public static  int identifiepanneau(Mat objetrond) {
+		float defaultratio = (float) 0.5;
+		return identifiepanneau(objetrond, defaultratio);
+	}
+	
+	public static int identifiepanneau_matching(Mat objetrond){
 		double [] scores=new double [6];
 		int indexmax=-1;
 		double scoremax=Integer.MAX_VALUE;
