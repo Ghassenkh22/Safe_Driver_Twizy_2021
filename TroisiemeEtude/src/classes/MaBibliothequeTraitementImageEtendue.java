@@ -542,6 +542,123 @@ public class MaBibliothequeTraitementImageEtendue {
 
 		return panneaux;
 		}
+	public static ArrayList<String> etu_pan2(String fichier) {
+		//Ouverture le l'image et saturation des rouges
+				System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+				Mat m=Imgcodecs.imread(fichier);
+				//MaBibliothequeTraitementImageEtendue.afficheImage("Image testée", m);
+				Mat transformee=MaBibliothequeTraitementImageEtendue.transformeBGRversHSV(m);
+				//la methode seuillage est ici extraite de l'archivage jar du meme nom 
+				Mat saturee=MaBibliothequeTraitementImageEtendue.seuillage(transformee, 6, 170, 110);
+				Mat objetrond = null;
+
+				//Création d'une liste des contours à partir de l'image saturée
+				List<MatOfPoint> ListeContours= MaBibliothequeTraitementImageEtendue .ExtractContours(saturee);
+				int i=0;
+				int k=0;
+				int nbr30=0;
+				int nbr50=0;
+				int nbr70=0;
+				int nbr90=0;
+				int nbr110=0;
+				int nbrdep=0;
+				int valeurprec=0;
+				int indice;
+				double [] scores=new double [6];
+				//Pour tous les contours de la liste
+				ArrayList<String> panneaux = new ArrayList<String>();
+				
+				for (MatOfPoint contour: ListeContours  ){
+					i++;
+					objetrond=MaBibliothequeTraitementImageEtendue.DetectForm(m,contour);
+					
+					if (objetrond!=null){
+						
+						//System.out.println("mode= "+mode+"\n");
+						indice=MaBibliothequeTraitementImageEtendue.identifiepanneau(objetrond);
+						//System.out.println("indice max"+indice+"\n");
+						switch(indice){
+						case -1:System.out.println("Aucun panneau détécté");break;
+						case 0:{
+								if (valeurprec!=30)
+								  nbr30=0;
+							      nbr30++;
+							//System.out.println("nbr 30= "+nbr30+"\n");
+							if (nbr30==5)
+							{  nbr30=0;
+								System.out.println("Panneau 30 détécté");
+								panneaux.add("30");}
+							valeurprec=30;
+							break;
+							}
+						
+						case 1:
+							{if (valeurprec!=50)
+							nbr50=0;
+								nbr50++;
+							//System.out.println("nbr 50= "+nbr50+"\n");
+							if (nbr50==5)
+							{  nbr50=0;
+								System.out.println("Panneau 50 détécté");
+								}
+							valeurprec=50;
+							panneaux.add("50");
+							break;}
+						case 2:
+						{   if (valeurprec!=70)
+							nbr70=0;
+							nbr70++;
+						//System.out.println("nbr 70= "+nbr70+"\n");
+						if (nbr70==3)
+						{  nbr70=0;
+							System.out.println("Panneau 70 détécté");
+							panneaux.add("70");
+							}
+						valeurprec=70;
+						break;}
+						case 3:
+							{if (valeurprec!=90)
+								nbr90=0;
+								nbr90++;
+						//System.out.println("nbr 90= "+nbr90+"\n");
+						if (nbr90==3)
+						{  nbr90=0;
+							System.out.println("Panneau 90 détécté");
+							panneaux.add("90");}
+						valeurprec=90;
+						break;}
+						case 4:
+						{ if (valeurprec!=110)
+							nbr110=0;
+							nbr110++;
+						//System.out.println("nbr 110= "+nbr110+"\n");
+						if (nbr110==3)
+						{  nbr110=0;
+							System.out.println("Panneau 110 détécté");
+							}
+						valeurprec=110;
+						panneaux.add("110");
+						break;}
+						case 5:
+							{if (valeurprec!=1)
+								nbrdep=0;
+								nbrdep++;
+						if (nbrdep==3)
+						{  nbrdep=0;
+							System.out.println("Panneau interdiction de dépasser détécté");
+							panneaux.add("intdep");}
+						valeurprec=1;
+						break;}
+							
+							
+							
+						}
+					}
+				}
+				
+
+		return panneaux;
+		}
 
 
 }
