@@ -215,8 +215,8 @@ public class test {
 			String comp=val.get(0);
 		
 			assertTrue(comp.equalsIgnoreCase("50"));}
-			@Test
-			public void testp32(){
+		@Test
+		public void testp32(){
 				ArrayList<String> val=new ArrayList<String>();
 				val=MaBibliothequeTraitementImageEtendue.etu_pan("p32.jpg")	;
 				String comp=val.get(0);
